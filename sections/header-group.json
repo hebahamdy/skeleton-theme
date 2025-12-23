@@ -13,10 +13,19 @@
   "sections": {
     "header": {
       "type": "header",
-      "settings": {}
+      "settings": {
+        "logo": "shopify://shop_images/mystore.png",
+        "logo_width": 150,
+        "logo_position": "left",
+        "menu": "main-menu",
+        "menu_type": "mega",
+        "sticky": true,
+        "bg_color": "#FFFFFF",
+        "text_color": "#121212"
+      }
     }
   },
   "order": [
     "header"
-  ],
+  ]
 }

@@ -26,9 +26,9 @@
           "announcement_icDTnT"
         ],
         "settings": {
-          "bg_color": "#a9efe6",
-          "text_color": "#6e6e6e",
-          "delay": 7
+          "bg_color": "#333333",
+          "text_color": "#e1bc23",
+          "delay": 5
         }
       }
     },
