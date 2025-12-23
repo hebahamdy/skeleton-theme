@@ -1,0 +1,93 @@
+{%- style -%}
+  .product-container {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    padding: 20px 5%;
+  }
+  
+  @media screen and (min-width: 750px) {
+    .product-container {
+      flex-direction: row; /* This flips to row-reverse automatically in RTL */
+    }
+    .product__media, .product__info {
+      flex: 1;
+    }
+  }
+
+  .product__media img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+
+  .product__info {
+    text-align: start;
+  }
+
+  .product__price {
+    font-size: 24px;
+    margin: 20px 0;
+    color: {{ section.settings.price_color }};
+  }
+
+  .btn-add-to-cart {
+    width: 100%;
+    padding: 15px;
+    background: #000;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  .btn-add-to-cart:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+{%- endstyle -%}
+
+<section class="product-container">
+  {%- assign featured_media = product.selected_or_first_available_variant.featured_media | default: product.featured_media -%}
+  
+  <div class="product__media">
+    <img src="{{ featured_media | image_url: width: 1000 }}" alt="{{ product.title }}" loading="eager">
+  </div>
+
+  <div class="product__info">
+    <h1>{{ product.title }}</h1>
+    
+    <div class="product__price">
+      {{ product.selected_or_first_available_variant.price | money }}
+    </div>
+
+    <div class="product__description">
+      {{ product.description }}
+    </div>
+
+    {%- form 'product', product -%}
+      <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+      
+      <div style="margin-top: 30px;">
+        <button type="submit" name="add" class="btn-add-to-cart" 
+          {% unless product.selected_or_first_available_variant.available %}disabled{% endunless %}>
+          {% if product.selected_or_first_available_variant.available %}
+            {{ 'Add to Cart' }}
+          {% else %}
+            {{ 'Sold Out' }}
+          {% endif %}
+        </button>
+      </div>
+    {%- endform -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product Main",
+  "settings": [
+    { "type": "color", "id": "price_color", "label": "Price Color", "default": "#000000" }
+  ]
+}
+{% endschema %}
