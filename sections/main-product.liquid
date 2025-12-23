@@ -1,135 +1,82 @@
 {%- style -%}
-  .product-container {
+  .product__gallery {
     display: flex;
     flex-direction: column;
-    gap: 40px;
-    padding: 40px 5%;
-  }
-  
-  @media screen and (min-width: 750px) {
-    .product-container { flex-direction: row; }
-    .product__media { flex: 1.5; }
-    .product__info { flex: 1; position: sticky; top: 20px; height: fit-content; }
+    gap: 15px;
   }
 
-  /* Photo Gallery Grid */
-  .product__media-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 10px;
-  }
-  .product__media-item img {
+  .product__main-image img {
     width: 100%;
     height: auto;
-    border-radius: 4px;
-    display: block;
+    border-radius: 8px;
+    object-fit: contain;
+    aspect-ratio: 1 / 1;
+    background: #f9f9f9;
   }
 
-  .product__info { text-align: start; }
-  .product__price { font-size: 28px; margin: 15px 0; font-weight: bold; }
-
-  /* Quantity and Buttons */
-  .quantity-input {
+  .product__thumbs {
     display: flex;
-    align-items: center;
-    border: 1px solid #ddd;
-    width: fit-content;
-    margin-bottom: 20px;
-  }
-  .quantity-input input {
-    width: 50px;
-    border: none;
-    text-align: center;
-    padding: 10px;
-  }
-  .quantity-btn {
-    padding: 10px 15px;
-    cursor: pointer;
-    background: none;
-    border: none;
-    font-size: 18px;
-  }
-
-  .product-form__buttons {
-    display: flex;
-    flex-direction: column;
     gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    scrollbar-width: thin;
   }
 
-  .btn-add-to-cart {
-    width: 100%;
-    padding: 18px;
-    background: transparent;
-    color: #000;
-    border: 1px solid #000;
+  .product__thumb-item {
+    flex: 0 0 80px; /* Small square thumbs */
     cursor: pointer;
-    font-weight: bold;
-    transition: 0.3s;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    overflow: hidden;
+    aspect-ratio: 1 / 1;
   }
-  .btn-add-to-cart:hover { background: #f5f5f5; }
 
-  /* Buy It Now Button */
-  .shopify-payment-button__button--unbranded {
-    background-color: #000 !important;
-    padding: 18px !important;
-    border-radius: 0 !important;
-    font-weight: bold !important;
+  .product__thumb-item.active {
+    border-color: #000;
   }
+
+  .product__thumb-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  /* Hide scrollbar for clean look */
+  .product__thumbs::-webkit-scrollbar { height: 4px; }
+  .product__thumbs::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
 {%- endstyle -%}
 
-<section class="product-container">
-  <div class="product__media">
-    <div class="product__media-grid">
+<div class="product__media">
+  <div class="product__gallery">
+    <div class="product__main-image">
+      {%- assign featured_media = product.selected_or_first_available_variant.featured_media | default: product.featured_media -%}
+      <img id="MainProductImage-{{ section.id }}" 
+           src="{{ featured_media | image_url: width: 1000 }}" 
+           alt="{{ product.title }}" 
+           loading="eager">
+    </div>
+
+    <div class="product__thumbs">
       {%- for media in product.media -%}
-        <div class="product__media-item">
-          {{ media | image_url: width: 1200 | image_tag: loading: 'lazy' }}
+        <div class="product__thumb-item {% if forloop.first %}active{% endif %}" 
+             onclick="switchProductImage('{{ media | image_url: width: 1000 }}', this)">
+          {{ media | image_url: width: 150 | image_tag: loading: 'lazy' }}
         </div>
       {%- endfor -%}
     </div>
   </div>
+</div>
 
-  <div class="product__info">
-    <nav class="breadcrumb" style="font-size: 12px; margin-bottom: 10px; opacity: 0.7;">
-      <a href="{{ routes.root_url }}">Home</a> / {{ product.collections.first.title }}
-    </nav>
-    
-    <h1>{{ product.title }}</h1>
-    
-    <div class="product__price" id="price-{{ section.id }}">
-      {{ product.selected_or_first_available_variant.price | money }}
-    </div>
+<script>
+  function switchProductImage(newSrc, element) {
+    // 1. Change the main image source
+    const mainImg = document.getElementById('MainProductImage-{{ section.id }}');
+    mainImg.src = newSrc;
 
-    <hr style="opacity: 0.1; margin: 20px 0;">
-
-    {%- form 'product', product, id: 'product-form' -%}
-      <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-
-      <label for="Quantity-{{ section.id }}" style="display:block; margin-bottom:10px;">Quantity</label>
-      <div class="quantity-input">
-        <button type="button" class="quantity-btn" onclick="this.nextElementSibling.stepDown()">-</button>
-        <input type="number" id="Quantity-{{ section.id }}" name="quantity" value="1" min="1">
-        <button type="button" class="quantity-btn" onclick="this.previousElementSibling.stepUp()">+</button>
-      </div>
-
-      <div class="product-form__buttons">
-        <button type="submit" name="add" class="btn-add-to-cart">
-          Add to Cart
-        </button>
-        {{ form | payment_button }}
-      </div>
-    {%- endform -%}
-
-    <div class="product__description" style="margin-top: 30px; line-height: 1.6;">
-      {{ product.description }}
-    </div>
-  </div>
-</section>
-
-{% schema %}
-{
-  "name": "Product Main Premium",
-  "settings": [
-    { "type": "color", "id": "price_color", "label": "Price Color", "default": "#000000" }
-  ]
-}
-{% endschema %}
+    // 2. Update active thumbnail styling
+    document.querySelectorAll('.product__thumb-item').forEach(thumb => {
+      thumb.classList.remove('active');
+    });
+    element.classList.add('active');
+  }
+</script>
