@@ -79,5 +79,29 @@
         "default": 4
       }
     ]
+  },
+  {
+    "name": "Social Media",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Social Accounts"
+      },
+      {
+        "type": "url",
+        "id": "social_instagram_link",
+        "label": "Instagram Link"
+      },
+      {
+        "type": "url",
+        "id": "social_snapchat_link",
+        "label": "Snapchat Link"
+      },
+      {
+        "type": "url",
+        "id": "social_tiktok_link",
+        "label": "TikTok Link"
+      }
+    ]
   }
 ]

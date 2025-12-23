@@ -129,6 +129,32 @@
       </div>
     {%- endform -%}
   </div>
+
+  <div class="product__delivery-info">
+  {%- if section.settings.info_text_1 != blank -%}
+    <div class="delivery-item">
+      {%- if section.settings.info_icon_1 != blank -%}
+        <img src="{{ section.settings.info_icon_1 | image_url: width: 50 }}" alt="icon 1" loading="lazy">
+      {%- else -%}
+        <span style="font-size: 20px;">🚚</span>
+      {%- endif -%}
+      <div class="delivery-text">{{ section.settings.info_text_1 }}</div>
+    </div>
+  {%- endif -%}
+
+  {%- if section.settings.info_text_2 != blank -%}
+    <div class="delivery-item">
+      {%- if section.settings.info_icon_2 != blank -%}
+        <img src="{{ section.settings.info_icon_2 | image_url: width: 50 }}" alt="icon 2" loading="lazy">
+      {%- else -%}
+        <span style="font-size: 20px;">💳</span>
+      {%- endif -%}
+      <div class="delivery-text">{{ section.settings.info_text_2 }}</div>
+    </div>
+  {%- endif -%}
+</div>
+
+
 </section>
 
 <script>
