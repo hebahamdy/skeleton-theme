@@ -8,5 +8,29 @@
  * ------------------------------------------------------------
  */
 {
-  "current": {}
+  "current": {
+    "sections": {
+      "announcementbar": {
+        "type": "announcementbar",
+        "blocks": {
+          "announcement_icDTnT": {
+            "type": "announcement",
+            "settings": {
+              "text": "Free shipping on orders over $50",
+              "link": "https://mail.google.com/mail/u/0/#inbox/FMfcgzQdzvvwSVvFqhlfWbdmMthBSCXx"
+            }
+          }
+        },
+        "block_order": [
+          "announcement_icDTnT"
+        ],
+        "settings": {
+          "bg_color": "#a9efe6",
+          "text_color": "#6e6e6e",
+          "delay": 7
+        }
+      }
+    },
+    "content_for_index": []
+  }
 }
