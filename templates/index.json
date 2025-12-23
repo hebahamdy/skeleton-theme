@@ -12,9 +12,25 @@
     "main": {
       "type": "hello-world",
       "settings": {}
+    },
+    "featured_collection_pkYpAi": {
+      "type": "featured-collection",
+      "name": "Featured Collection",
+      "settings": {
+        "title": "Featured Collection",
+        "subtitle": "Shop our latest arrivals",
+        "collection": "frontpage",
+        "limit": 4,
+        "grid_desktop": 4,
+        "show_view_all": true,
+        "bg_color": "#ffffff",
+        "text_color": "#121212",
+        "price_color": "#000000"
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "featured_collection_pkYpAi"
   ]
 }
