@@ -10,6 +10,7 @@
 {
   "current": {
     "max_page_width": "110rem",
+    "input_corner_radius": 0,
     "social_instagram_link": "https://www.facebook.com/",
     "social_snapchat_link": "https://www.facebook.com/",
     "sections": {
