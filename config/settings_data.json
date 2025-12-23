@@ -9,6 +9,7 @@
  */
 {
   "current": {
+    "max_page_width": "110rem",
     "sections": {
       "announcementbar": {
         "type": "announcementbar",
