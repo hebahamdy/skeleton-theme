@@ -28,7 +28,8 @@
       "type": "hero-banner",
       "name": "Hero Banner Responsive",
       "settings": {
-        "image_desktop": "shopify://shop_images/s5.webp",
+        "image_desktop": "shopify://shop_images/Screenshot_23-12-2025_11314_hanei-store-demo.myshopify.com.jpg",
+        "image_mobile": "shopify://shop_images/greeting-2026.jpg",
         "height_desktop": "80",
         "height_mobile": "70",
         "content_alignment": "flex-start",
@@ -39,7 +40,7 @@
         "btn_link": "",
         "overlay_color": "#000000",
         "text_color": "#ffffff",
-        "btn_bg": "#ffffff",
+        "btn_bg": "#e1bc23",
         "btn_text": "#000000"
       }
     }
