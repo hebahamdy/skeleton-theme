@@ -23,9 +23,29 @@
         "bg_color": "#FFFFFF",
         "text_color": "#121212"
       }
+    },
+    "hero_banner_TrBDnp": {
+      "type": "hero-banner",
+      "name": "Hero Banner Responsive",
+      "settings": {
+        "image_desktop": "shopify://shop_images/s5.webp",
+        "height_desktop": "80",
+        "height_mobile": "70",
+        "content_alignment": "flex-start",
+        "title": "New Arrivals",
+        "heading_size": 40,
+        "subtext": "Explore the collection.",
+        "btn_label": "Shop Now",
+        "btn_link": "",
+        "overlay_color": "#000000",
+        "text_color": "#ffffff",
+        "btn_bg": "#ffffff",
+        "btn_text": "#000000"
+      }
     }
   },
   "order": [
-    "header"
+    "header",
+    "hero_banner_TrBDnp"
   ]
 }
